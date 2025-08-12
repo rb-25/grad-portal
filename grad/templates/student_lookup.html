@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Lookup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+        }
+        .header img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        .box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+        }
+        .result {
+            margin-top: 20px;
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Student Lookup</h1>
+    </div>
+
+    <div class="box">
+        <label for="reg_num">Enter Registration Number:</label><br>
+        <input type="text" id="reg_num" placeholder="e.g. 12345">
+        <button onclick="fetchStudent()">Search</button>
+    </div>
+
+    <div class="result" id="resultBox">
+        <h3>Student Details</h3>
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Reg Counter:</strong> <span id="reg_counter"></span></p>
+        <p><strong>Seat:</strong> <span id="seat"></span></p>
+        <p><strong>Reg Num:</strong> <span id="reg_num_val"></span></p>
+        <p><strong>Session:</strong> <span id="session"></span></p>
+        <p><strong>Category:</strong> <span id="student_category"></span></p>
+    </div>
+
+    <script>
+        function fetchStudent() {
+            const regNum = document.getElementById("reg_num").value.trim();
+            if (!regNum) {
+                alert("Please enter a registration number");
+                return;
+            }
+
+            fetch(`${window.location.origin}/student/${regNum}/`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Student not found");
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById("name").textContent = data.name;
+                    document.getElementById("reg_counter").textContent = data.reg_counter;
+                    document.getElementById("seat").textContent = data.seat;
+                    document.getElementById("reg_num_val").textContent = data.reg_num;
+                    document.getElementById("session").textContent = data.session;
+                    document.getElementById("student_category").textContent = data.student_category;
+
+                    document.getElementById("resultBox").style.display = "block";
+                })
+                .catch(err => {
+                    alert(err.message);
+                    document.getElementById("resultBox").style.display = "none";
+                });
+        }
+    </script>
+</body>
+</html>

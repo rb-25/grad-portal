@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: gradportal-postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    networks:
+      - gradportal-network
+  
+  gradportal-api:
+    image: aarabi/gradportal-gradportal-api:latests
+    container_name: gradportal-api
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/usr/src/gradportal/
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - gradportal-network
+    restart: always
+    
+  traefik:
+    build:
+      context: .
+      dockerfile: ./traefik/Dockerfile
+    container_name: gradportal-traefik
+    depends_on:
+      - gradportal-api
+    volumes:
+      - traefik-volume:/etc/traefik/acme:z
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+      - "0.0.0.0:5555:5555"
+    networks:
+      - gradportal-network
+    restart: always
+      
+volumes:
+  postgres-db:
+  traefik-volume:
+
+networks:
+  gradportal-network:

@@ -1,0 +1,15 @@
+<!-- templates/upload_csv.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Students CSV</title>
+</head>
+<body>
+    <h1>Upload Students CSV</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
