@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-e&ypnnf!ij7#wdanb9olc(-j^br**che1(42f3_^q)qi%_q6i3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "graduation.aarabi.live"]
 
 
 # Application definition
