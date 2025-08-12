@@ -28,19 +28,19 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`api.gibspons.dscvit.com`)" 
+      rule: "Host(`graduation.aarabi.live`)" 
       entryPoints:
         - web-secure
-      service: gibspons-api
+      service: gradportal-api
       tls:
         # https://docs.traefik.io/master/routing/routers/#certresolver
         certResolver: letsencrypt
   
   services:
-    gibspons-api:
+    gradportal-api:
       loadBalancer:
         servers:
-          - url: http://gibspons-api:8000
+          - url: http://gradportal-api:8000
 
 providers:
   # https://docs.traefik.io/master/providers/file/
