@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "graduation.aarabi.live"]
 
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Application definition
 

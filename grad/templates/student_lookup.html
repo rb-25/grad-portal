@@ -1,56 +1,111 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Lookup</title>
+    <title>Graduation Desk Lookup</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
         }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Header */
         .header {
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
         .header img {
-            height: 60px;
-            margin-right: 15px;
+            height: 80px;
         }
-        .box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 300px;
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
         }
-        .result {
-            margin-top: 20px;
-            display: none;
-            padding: 15px;
-            border: 1px solid #ccc;
+
+        /* Input field */
+        .input-box {
+            margin: 40px 0 30px;
+        }
+        .input-box label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .input-box input {
+            width: 250px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid #000;
             border-radius: 8px;
-            background-color: #f9f9f9;
+            text-align: center;
+            outline: none;
+        }
+        .input-box input::placeholder {
+            color: #b0b0b0;
+        }
+
+        /* Details section */
+        .details {
+            margin-top: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+        .details h3 {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .detail-row {
+            font-size: 16px;
+            margin: 8px 0;
+            display: flex;
+            gap: 15px;
+        }
+        .detail-row .label {
+            min-width: 140px;
+            font-weight: 500;
+        }
+        .detail-row .colon {
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Student Lookup</h1>
-    </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="{% static 'logo.png' %}" alt="College Logo">
+            <h1>Graduation Desk Lookup</h1>
+        </div>
 
-    <div class="box">
-        <label for="reg_num">Enter Registration Number:</label><br>
-        <input type="text" id="reg_num" placeholder="e.g. 12345">
-        <button onclick="fetchStudent()">Search</button>
-    </div>
+        <!-- Input -->
+        <div class="input-box">
+            <label for="reg_num">Enter registration number:</label>
+            <input type="text" id="reg_num" placeholder="22BIT0337" onkeydown="if(event.key==='Enter'){fetchStudent();}">
+        </div>
 
-    <div class="result" id="resultBox">
-        <h3>Student Details</h3>
-        <p><strong>Name:</strong> <span id="name"></span></p>
-        <p><strong>Reg Counter:</strong> <span id="reg_counter"></span></p>
-        <p><strong>Seat:</strong> <span id="seat"></span></p>
-        <p><strong>Reg Num:</strong> <span id="reg_num_val"></span></p>
-        <p><strong>Session:</strong> <span id="session"></span></p>
-        <p><strong>Category:</strong> <span id="student_category"></span></p>
+        <!-- Result -->
+        <div class="details" id="resultBox" style="display:none;">
+            <h3>Details</h3>
+            <div class="detail-row"><span class="label">Name</span><span class="colon">:</span> <span id="name"></span></div>
+            <div class="detail-row"><span class="label">Reg Counter</span><span class="colon">:</span> <span id="reg_counter"></span></div>
+            <div class="detail-row"><span class="label">Seat Number</span><span class="colon">:</span> <span id="seat"></span></div>
+            <div class="detail-row"><span class="label">Session</span><span class="colon">:</span> <span id="session"></span></div>
+        </div>
     </div>
 
     <script>
@@ -70,11 +125,9 @@
                     document.getElementById("name").textContent = data.name;
                     document.getElementById("reg_counter").textContent = data.reg_counter;
                     document.getElementById("seat").textContent = data.seat;
-                    document.getElementById("reg_num_val").textContent = data.reg_num;
                     document.getElementById("session").textContent = data.session;
-                    document.getElementById("student_category").textContent = data.student_category;
 
-                    document.getElementById("resultBox").style.display = "block";
+                    document.getElementById("resultBox").style.display = "inline-block";
                 })
                 .catch(err => {
                     alert(err.message);
@@ -84,3 +137,4 @@
     </script>
 </body>
 </html>
+
