@@ -14,7 +14,9 @@ services:
       - gradportal-network
   
   gradportal-api:
-    image: aarabi/gradportal-gradportal-api:latests
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: gradportal-api
     ports:
       - 8000:8000
@@ -26,7 +28,6 @@ services:
       - postgres
     networks:
       - gradportal-network
-    restart: always
     
   traefik:
     build:
