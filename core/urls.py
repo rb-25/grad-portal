@@ -26,7 +26,7 @@ from grad.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("student-lookup/", student_lookup_page, name="student_lookup_page"),
+    path("", student_lookup_page, name="student_lookup_page"),
     path("student/<str:reg_num>/", get_student_by_regnum, name="get_student_by_regnum"),
     path("upload-csv/", upload_students_csv, name="upload_students_csv"),
 ]
