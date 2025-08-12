@@ -72,7 +72,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://graduation.aarabi.live",
+    "https://www.graduation.aarabi.live",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://0.0.0.0:8000",
+]
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
