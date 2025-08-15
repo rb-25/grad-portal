@@ -65,7 +65,6 @@ def upload_students_csv(request):
                 session=row["SESSION"].strip(),
                 reg_counter=row["Registration Counter"].strip(),
                 seat=row["Seat No"].strip(),
-                gender=row["GENDER"].strip(),
                 school_name=row["SCHOOL"].strip(),
             )
             students_to_create.append(student)
