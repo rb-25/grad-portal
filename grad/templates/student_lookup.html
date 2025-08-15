@@ -97,7 +97,9 @@
             <label for="reg_num">Enter registration number:</label>
             <div style="display: flex; gap: 10px; justify-content: center;">
                 <input type="text" id="reg_num" placeholder="22BIT0337" 
-                       onkeydown="if(event.key==='Enter'){fetchStudent();}">
+       style="text-transform: uppercase;"
+       onkeydown="if(event.key==='Enter'){fetchStudent();}">
+
                 <button type="button" onclick="fetchStudent()" 
                         style="padding: 10px 20px; font-size: 16px; border: none; background-color: #000; color: #fff; border-radius: 8px; cursor: pointer;">
                     Submit
@@ -123,7 +125,7 @@
 
     <script>
         function fetchStudent() {
-            const regNum = document.getElementById("reg_num").value.trim();
+            let regNum = document.getElementById("reg_num").value.trim().toUpperCase();
             const errorBox = document.getElementById("error");
 
             // Clear old error
@@ -155,12 +157,12 @@
 
                     document.getElementById("resultBox").style.display = "inline-block";
                 })
-
                 .catch(err => {
                     errorBox.textContent = err.message;
                     errorBox.style.display = "block";
                 });
         }
+
 
     </script>
 </body>
