@@ -64,9 +64,13 @@ def upload_students_csv(request):
                 name=row["STUDENT_NAME"].strip(),
                 session=row["SESSION"].strip(),
                 reg_counter=row["Registration Counter"].strip(),
-                seat=row["Seat No"].strip(),
                 school_name=row["SCHOOL"].strip(),
             )
+            if student.session == "1":
+                seat = row["Seat No"].strip()
+            else:
+                seat = row["Distribution Counter"].strip()
+            student.seat = seat
             students_to_create.append(student)
 
         # Bulk insert for efficiency

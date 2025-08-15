@@ -110,7 +110,18 @@
             <h3>Details</h3>
             <div class="detail-row"><span class="label">Name</span><span class="colon">:</span> <span id="name"></span></div>
             <div class="detail-row"><span class="label">Reg Counter</span><span class="colon">:</span> <span id="reg_counter"></span></div>
-            <div class="detail-row"><span class="label">Seat Number</span><span class="colon">:</span> <span id="seat"></span></div>
+            {% if session == "1" %}
+                <div class="detail-row">
+                    <span class="label">Seat</span>
+                    <span class="colon">:</span> <span id="seat">{{ seat }}</span>
+                </div>
+            {% else %}
+                <div class="detail-row">
+                    <span class="label">Distribution Counter</span>
+                    <span class="colon">:</span> <span id="seat">{{ seat }}</span>
+                </div>
+            {% endif %}
+
             <div class="detail-row"><span class="label">Session</span><span class="colon">:</span> <span id="session"></span></div>
         </div>
     </div>
@@ -132,12 +143,7 @@
                     document.getElementById("name").textContent = data.name;
                     document.getElementById("reg_counter").textContent = data.reg_counter;
     
-                    // Condition for seat vs distribution counter
-                    if (String(data.session) === "1") {
-                        document.getElementById("seat").textContent = data.seat;
-                    } else {
-                        document.getElementById("seat").textContent = data.distribution_counter;
-                    }
+                    document.getElementById("seat").textContent = data.seat;
     
                     document.getElementById("session").textContent = data.session;
     
