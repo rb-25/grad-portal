@@ -111,17 +111,11 @@
             <h3>Details</h3>
             <div class="detail-row"><span class="label">Name</span><span class="colon">:</span> <span id="name"></span></div>
             <div class="detail-row"><span class="label">Reg Counter</span><span class="colon">:</span> <span id="reg_counter"></span></div>
-            {% if session == "1" %}
-                <div class="detail-row">
-                    <span class="label">Seat</span>
-                    <span class="colon">:</span> <span id="seat">{{ seat }}</span>
-                </div>
-            {% else %}
-                <div class="detail-row">
-                    <span class="label">Distribution Counter</span>
-                    <span class="colon">:</span> <span id="seat">{{ seat }}</span>
-                </div>
-            {% endif %}
+            <div class="detail-row">
+                <span class="label" id="seat-label"></span>
+                <span class="colon">:</span> 
+                <span id="seat"></span>
+            </div>
 
             <div class="detail-row"><span class="label">Session</span><span class="colon">:</span> <span id="session"></span></div>
         </div>
@@ -153,8 +147,15 @@
                     document.getElementById("seat").textContent = data.seat;
                     document.getElementById("session").textContent = data.session;
 
+                    if (data.session == "1") {
+                        document.getElementById("seat-label").textContent = "Seat Number";
+                    } else {
+                        document.getElementById("seat-label").textContent = "Distribution Counter";
+                    }
+
                     document.getElementById("resultBox").style.display = "inline-block";
                 })
+
                 .catch(err => {
                     errorBox.textContent = err.message;
                     errorBox.style.display = "block";
