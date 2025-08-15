@@ -60,16 +60,13 @@ def upload_students_csv(request):
         students_to_create = []
         for row in reader:
             student = Student(
-                reg_num=row["REG_NO"].strip(),
+                reg_num=row["REGISTER_NUMBER"].strip(),
                 name=row["STUDENT_NAME"].strip(),
                 session=row["SESSION"].strip(),
                 reg_counter=row["Registration Counter"].strip(),
                 seat=row["Seat No"].strip(),
                 gender=row["GENDER"].strip(),
-                program_group=row["PROGRAMME_GROUP"].strip(),
-                program_name=row["PROGRAMME_NAME"].strip(),
                 school_name=row["SCHOOL"].strip(),
-                student_category=row["STUDENT CATEGORY"].strip(),
             )
             students_to_create.append(student)
 
