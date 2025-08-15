@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   postgres:
@@ -9,23 +9,29 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - gradportal-network
-  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   gradportal-api:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: gradportal-api
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
       - .:/usr/src/gradportal/
     env_file:
       - .env
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - gradportal-network
     
