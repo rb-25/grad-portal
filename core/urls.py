@@ -23,9 +23,13 @@ from grad.views import (
     upload_students_csv,
     student_lookup_page,
 )
+import os
+
+ADMIN_URL = os.environ.get("ADMIN_URL", "1234/")
+
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path(ADMIN_URL, admin.site.urls),
     path("", student_lookup_page, name="student_lookup_page"),
     path("student/<str:reg_num>/", get_student_by_regnum, name="get_student_by_regnum"),
     path("upload-csv/", upload_students_csv, name="upload_students_csv"),
