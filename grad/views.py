@@ -15,7 +15,9 @@ def student_lookup_page(request):
 def get_student_by_regnum(request, reg_num):
     # Find student or return 404
     print(reg_num)
-    student = get_object_or_404(Student, reg_num=reg_num)
+    student = Student.objects.filter(reg_num=reg_num).first()
+    if not student:
+        return JsonResponse({"error": "Student not registered"}, status=404)
     print(student)
     # Prepare response
     data = {

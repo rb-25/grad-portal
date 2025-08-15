@@ -103,6 +103,7 @@
                     Submit
                 </button>
             </div>
+            <div id="error" style="display:none; color:red; font-weight:500; margin-top:15px;"></div>
         </div>
 
         <!-- Result -->
@@ -129,31 +130,37 @@
     <script>
         function fetchStudent() {
             const regNum = document.getElementById("reg_num").value.trim();
+            const errorBox = document.getElementById("error");
+
+            // Clear old error
+            errorBox.style.display = "none";
+            errorBox.textContent = "";
+
             if (!regNum) {
-                alert("Please enter a registration number");
+                errorBox.textContent = "Please enter a registration number";
+                errorBox.style.display = "block";
                 return;
             }
-    
+
             fetch(`${window.location.origin}/student/${regNum}/`)
                 .then(response => {
-                    if (!response.ok) throw new Error("Student not found");
+                    if (!response.ok) throw new Error("Student not registered for convocation");
                     return response.json();
                 })
                 .then(data => {
                     document.getElementById("name").textContent = data.name;
                     document.getElementById("reg_counter").textContent = data.reg_counter;
-    
                     document.getElementById("seat").textContent = data.seat;
-    
                     document.getElementById("session").textContent = data.session;
-    
+
                     document.getElementById("resultBox").style.display = "inline-block";
                 })
                 .catch(err => {
-                    alert(err.message);
-                    document.getElementById("resultBox").style.display = "none";
+                    errorBox.textContent = err.message;
+                    errorBox.style.display = "block";
                 });
         }
+
     </script>
 </body>
 </html>
