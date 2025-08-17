@@ -11,10 +11,11 @@ services:
     networks:
       - gradportal-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-gradportal}"]
       interval: 5s
       timeout: 5s
       retries: 5
+
 
   gradportal-api:
     build:
